@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.database import create_tables
-from app.api import health, organizations, projects
+from app.api import health, organizations, projects, workflows
 
 
 @asynccontextmanager
@@ -49,6 +49,7 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(organizations.router)
 app.include_router(projects.router)
+app.include_router(workflows.router)
 
 
 @app.get("/")
