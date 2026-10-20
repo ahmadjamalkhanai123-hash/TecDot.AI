@@ -23,14 +23,19 @@ class Settings(BaseSettings):
     # Environment
     environment: str = "development"
 
-    # CORS
-    allowed_origins: list[str] = ["http://localhost:3000", "http://localhost:5173"]
+    # CORS - comma-separated in .env
+    allowed_origins: str = "http://localhost:3000,http://localhost:5173"
 
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
     )
+
+    @property
+    def cors_origins(self) -> list[str]:
+        """Parse allowed origins from comma-separated string."""
+        return [origin.strip() for origin in self.allowed_origins.split(",")]
 
 
 # Global settings instance

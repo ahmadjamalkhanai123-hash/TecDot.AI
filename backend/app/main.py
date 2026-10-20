@@ -11,17 +11,19 @@ from app.api import health, organizations, projects
 async def lifespan(app: FastAPI):
     """Lifecycle events: startup and shutdown."""
     # Startup: Create database tables
-    print("🚀 Starting TecDot.AI - Unified AI Platform...")
-    print(f"📊 Database: {settings.database_url.split('@')[1]}")  # Hide password
+    print("=" * 60)
+    print("Starting TecDot.AI - Unified AI Platform...")
+    print(f"Database: {settings.database_url.split('@')[1]}")  # Hide password
     await create_tables()
-    print("✅ Database tables created/verified")
-    print(f"🌐 API running on http://{settings.api_host}:{settings.api_port}")
-    print(f"📚 API docs: http://localhost:{settings.api_port}/docs")
+    print("Database tables created/verified")
+    print(f"API running on http://{settings.api_host}:{settings.api_port}")
+    print(f"API docs: http://localhost:{settings.api_port}/docs")
+    print("=" * 60)
 
     yield
 
     # Shutdown
-    print("👋 Shutting down TecDot.AI...")
+    print("Shutting down TecDot.AI...")
 
 
 # Create FastAPI app
@@ -37,7 +39,7 @@ app = FastAPI(
 # CORS middleware for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
